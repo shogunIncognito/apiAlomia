@@ -37,7 +37,7 @@ export class Car extends BaseEntity {
     @Column()
     transmission: string
 
-    @Column()
+    @Column('float')
     cc: number
 
     @Column()

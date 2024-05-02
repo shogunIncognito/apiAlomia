@@ -21,3 +21,20 @@ export const login = async (req: Request, res: Response) => {
 
     res.json({ token, ...values })
 }
+
+interface UserValues {
+    _id: number
+    username: string
+    role: string
+    image: string
+}
+
+export const validateToken = async (req: Request, res: Response) => {
+    const { token } = req.body
+    const user = jwt.verify(token, process.env.JWT_SECRET!) as UserValues;
+    
+    const userImage = await User.findOneBy({ _id: user._id });
+    if (!userImage) return res.status(401).json({ message: 'Invalid token' });
+
+    return res.json({ ...user, image: userImage.image });
+}
