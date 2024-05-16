@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
     database: "maxautos",
     port: 5432,
     username: "postgres",
-    password: "DEV123",
+    password: process.env.DB_PASSWORD,
     entities: [User, Car],
     logging: true,
     synchronize: true
