@@ -23,8 +23,8 @@ export class Car extends BaseEntity {
     })
     images: string[]
 
-    @Column()
-    price: number
+    @Column({ type: 'bigint' })
+    price: string;
 
     @Column({
         default: null
