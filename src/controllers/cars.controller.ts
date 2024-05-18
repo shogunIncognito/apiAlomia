@@ -7,6 +7,12 @@ export const getCars = async (_req: Request, res: Response) => {
     return res.json(cars)
 }
 
+export const getCar = async (req: Request, res: Response) => {
+    const { id } = req.params
+    const car = await Car.findOneBy({ _id: parseInt(id) })
+    return res.json(car)
+}
+
 export const createCar = async (req: Request, res: Response) => {
     console.log(req.body);
     const car = Car.create(req.body)
@@ -49,7 +55,6 @@ export const updateCarImages = async (req: Request, res: Response) => {
 }
 
 // brands
-
 export const getBrands = (_req: Request, res: Response) => {
     return res.json(brands)
 }

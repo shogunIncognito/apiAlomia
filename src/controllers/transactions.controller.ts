@@ -9,8 +9,11 @@ export const getTransaction = async (_req: Request, res: Response) => {
 
 export const createTransaction = async (req: Request, res: Response) => {
     const { buyer, car, price, date } = req.body
-    const newBuyer = await Buyer.save(buyer)
-    const newTransaction = await Transaction.save({ buyer: newBuyer.cc, car, price, date })
 
+    // busca si el comprador ya existe y si no lo crea
+    const existBuyer = await Buyer.findOneBy({ cc: buyer.cc })
+    const newBuyer = existBuyer || await Buyer.save(buyer)
+
+    const newTransaction = await Transaction.save({ buyer: newBuyer.cc, car, price, date })
     return res.json(newTransaction)
 }
