@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { User } from "../entities/User";
 import jwt from 'jsonwebtoken'
+import { LoginHistory } from "../entities/LoginHistory";
 
 export const login = async (req: Request, res: Response) => {
     const { username, password } = req.body
@@ -18,6 +19,8 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign(values, process.env.JWT_SECRET!)
+
+    await LoginHistory.save({ user: existUser, loginTime: new Date().toISOString() })
 
     res.json({ token, ...values })
 }
