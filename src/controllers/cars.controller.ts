@@ -8,7 +8,7 @@ export const getTransactionsByCarId = async (carId: { _id: number }) => {
 }
 
 export const getCars = async (_req: Request, res: Response) => {
-    const cars = await Car.find()
+    const cars = await Car.find({order: { createdAt: 'ASC' }})
 
     const carsWithTransactions = await Promise.all(cars.map(async (car) => {
         const transactions = await getTransactionsByCarId(car);

@@ -3,7 +3,7 @@ import { Transaction } from "../entities/Transaction"
 import { Buyer } from "../entities/Buyer"
 
 export const getTransaction = async (_req: Request, res: Response) => {
-    const transactions = await Transaction.find({ relations: ['buyer', 'car'] })
+    const transactions = await Transaction.find({ relations: ['buyer', 'car'], order: { createdAt: 'DESC' } })
     return res.json(transactions)
 }
 
